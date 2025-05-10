@@ -4,7 +4,8 @@
     outline: none;
     padding: 5px ;
     font-family: 'Roboto', sans-serif;
-    font-size: 1.5em;
+    font-size: 1.7em;
+    text-align: center;
     font-weight: 500;
     border-radius: 5px;
     width: 100%;
@@ -13,6 +14,7 @@
     justify-content: left;
     align-items: center;
     cursor: pointer;
+    margin-bottom: 10px;
 }
 .button-modal:hover{
  background-color: var(--white);
@@ -22,13 +24,14 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 50px;
-    height: 50px;
+    text-align: center;
+    width: 70px;
+    height: 70px;
     border-radius: 50%;
     transition-duration: 0.3s;
 }
 .button-modal > p:nth-child(1):hover{
     padding: 12px;
-    width: 55px;
-    height: 55px;;
+    width: 75px;
+    height: 75px;;
 }

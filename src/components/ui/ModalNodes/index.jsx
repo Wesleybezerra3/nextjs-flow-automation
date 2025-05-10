@@ -1,75 +1,63 @@
 import { ModalContext } from "@/context/AppProvider";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import ButtonModal from "../ButtonModal";
-import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
-import { faGear } from "@fortawesome/free-solid-svg-icons";
-import { faBolt } from "@fortawesome/free-solid-svg-icons";
-import { faClock } from "@fortawesome/free-solid-svg-icons";
-import { faQuestion } from "@fortawesome/free-solid-svg-icons";
-import { faRobot } from "@fortawesome/free-solid-svg-icons";
+import { nodeTypes } from "@/utils/types"; // Importa os tipos de nós
 import "./style.css";
 
 const ModalNodes = ({ onAddNode }) => {
   const { isVisible } = useContext(ModalContext);
+  const [selectedNodeType, setSelectedNodeType] = useState(null);
+
+  const handleBack = () => {
+    setSelectedNodeType(null); // Volta ao modal principal
+  };
+
   return (
     <>
       {isVisible && (
         <div className="modal-nodes">
-          <div>
-            <div className="">
-              <p className="">Apps</p>
-              <ButtonModal
-                onClick={() =>
-                  onAddNode("whatsapp", "WhatsApp", "#20c707", faWhatsapp)
-                }
-                icon={faWhatsapp}
-                color={"#20c707"}
-                content={"WhatsApp"}
-              />
-               <ButtonModal
-                onClick={() =>
-                  onAddNode("virtual assistant", "Virtual assistant", "#10A37F",  faRobot)
-                }
-                icon={faRobot}
-                color={"#10a37f"}
-                content={"Assistente Virtual"}
-              />
+          {/* Modal Principal */}
+          {!selectedNodeType && (
+            <div>
+              <p className="modal-title">Apps</p>
+              {Object.keys(nodeTypes).map((type) => (
+                <ButtonModal
+                  key={type}
+                  onClick={() => setSelectedNodeType(type)}
+                  icon={nodeTypes[type].icon}
+                  color={nodeTypes[type].color}
+                  content={nodeTypes[type].label}
+                />
+              ))}
             </div>
+          )}
 
-            <div className="">
-              <p className="">Internal</p>
+          {/* Modal de Ações Dinâmicas */}
+          {selectedNodeType && (
+            <div>
+              <button onClick={handleBack} className="back-button">
+                Voltar
+              </button>
+              <h3>Ações para {nodeTypes[selectedNodeType]?.label}</h3>
+              {nodeTypes[selectedNodeType]?.actions.map((action) => (
+                <ButtonModal
+                  key={action.id}
+                  onClick={() =>
+                    onAddNode(
+                      nodeTypes[selectedNodeType].type,
+                      nodeTypes[selectedNodeType].label,
+                      nodeTypes[selectedNodeType].color,
+                      nodeTypes[selectedNodeType].icon,
+                      action
+                    )
+                  }
+                  icon={nodeTypes[selectedNodeType].icon}
+                  color={nodeTypes[selectedNodeType].color}
+                  content={action.label}
+                />
+              ))}
             </div>
-            <ButtonModal
-              onClick={() => onAddNode("trigger", "Trigger", "#FF9914", faBolt)}
-              color={"#FF9914"}
-              icon={faBolt}
-              content={"Gatilho"}
-            />
-
-            <ButtonModal
-              onClick={() => onAddNode("action", "Action", "#08BDBD", faGear)}
-              icon={faGear}
-              color={"#08BDBD"}
-              content={"Ação"}
-            />
-
-            <ButtonModal
-              onClick={() => onAddNode("delay", "Delay", "#636363", faClock)}
-              icon={faClock}
-              color={"#636363"}
-              content={"Atraso"}
-            />
-
-            <ButtonModal
-              onClick={() =>
-                onAddNode("condition", "Condition", "#F0A202", faQuestion)
-              }
-              icon={faQuestion}
-              color={"#F0A202"}
-              content={"Condição"}
-            />
-          </div>
-          <div></div>
+          )}
         </div>
       )}
     </>

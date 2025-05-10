@@ -54,7 +54,6 @@ justify-content: center;
 }
 .label-container {
     height: 30px; /* Altura fixa */
-    max-width: 150px; /* Largura máxima */
     overflow: hidden; /* Esconde o texto que ultrapassar */
     text-overflow: ellipsis; /* Adiciona "..." no final */
     white-space: nowrap; /* Impede quebra de linha */

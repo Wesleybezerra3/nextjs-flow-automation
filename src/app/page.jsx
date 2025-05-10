@@ -6,6 +6,7 @@ import Sidebar from "../components/Sidebar";
 import { applyNodeChanges, addEdge } from "react-flow-renderer";
 import React, { useState,useCallback } from "react";
 import Header from "@/components/Header";
+import JsonEditor from "@/components/JsonEditor";
 
 
 export default function Home() {
@@ -15,10 +16,7 @@ export default function Home() {
       {/* Sidebar */}
         <Sidebar /> 
       {/* Main Content */}
-      <div className="flex flex-col flex-1">
-        {/* Header */}
-      {/* <Header/> */}
-    
+      <div className="flex flex-col flex-1">    
         {/* Flow Editor */}
         <div className="flex-1 overflow-hidden p-4">
           <FlowEditor/>

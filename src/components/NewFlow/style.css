@@ -1,22 +1,22 @@
 .new-flow{
     position: relative;
     display: flex;
-    align-items: center;;
+    align-items: center;
     width: 100%;
     height: 100px;
     margin-top: 50px;
 
 }
 .add-flow-button{
-    margin: 20px 0px 0px 20px;
+    margin: 20px 0px 0px 0px;
     display: flex;
     align-items: center;
-    justify-content: right;
+    justify-content: left;
     gap: 10px;
     padding: 10px;
     width: 100%;
     height: 50px;
-    /* background-color: var(--white2); */
+     border:1px solid var(--white2); 
     /* border: 1px solid #ccc; */
     color: var(--white2);
     font-weight: bold;
@@ -24,11 +24,11 @@
     border-radius: 5px;
     cursor: pointer;
     z-index: 4;
-}
-.add-flow-button:hover{
-    background-color: var(--white2);
-    color: var(--purple);
-    transition: all 0.3s ease-in-out;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 
 }
+ .add-flow-button:hover{
+    transition: all 0.1s ease-in-out;
+    transform: scale(1.01);
+
+} 

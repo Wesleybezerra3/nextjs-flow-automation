@@ -5,5 +5,12 @@
   /* justify-content: center; */
   gap: 1.2em;
   width: 100%;
-  margin-left: 40px;
+}
+.container-flows h2{
+  margin-bottom: 10px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.4em;
+  font-weight: bold;
+  opacity: 0.8;
+  color: var(--white2);
 }

@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import './style.css'
 
 
+
 export default function ButtonModal({ icon, color, content, ...props }) {
   return (
     <button

@@ -9,15 +9,16 @@ const HeaderFlowEditor = () => {
     const {lastUpdate} = useFlow()
   return (
     <div className='header-flow-editor'>
-        <div>
+        {/* <div>
             <AddNode/>
+        </div> */}
+        <div>
+            <LastUpdate timestamp={lastUpdate}/>
         </div>
         <div>
             <SelectFlow/>
         </div>
-        <div>
-            <LastUpdate timestamp={lastUpdate}/>
-        </div>
+        
     </div>
   )
 }

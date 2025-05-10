@@ -2,30 +2,38 @@
 import React, { useState } from "react";
 import { useFlow } from "@/context/AppProvider";
 import CardMyFlows from "../CardMyFlows";
+
 import "./style.css";
+import JsonEditor from "../JsonEditor";
 
 const FlowDetails = ({ display }) => {
-  const { myFlows } = useFlow();
+  const [isVisible, setIsVisible] = useState(false);
+  const { selectedFlow } = useFlow();
+   const toggleVisibility = () => {
+    setIsVisible(!isVisible);
+  };
   return (
-    <div 
-    className="container-flows"
+    <div
+      className="container-flows"
       style={{
         display: display ? "block" : "none",
       }}
+      onClick={toggleVisibility}
     >
-      {myFlows ? (
+      <h2>Projetos</h2>
+
+      {selectedFlow ? (
         <div>
-          {myFlows.map((flow) => (
-            <CardMyFlows
-              key={flow.id}
-              name={flow.attributes.name}
-              id={flow.id}
-            />
-          ))}
+          <CardMyFlows
+            key={selectedFlow.id}
+            name={selectedFlow.attributes.name}
+            id={selectedFlow.id}
+          />
         </div>
       ) : (
-        <p>Nenhum fluxo criado ainda.</p>
+        <p>Nenhum flow selecionado.</p>
       )}
+      <JsonEditor visible={isVisible} onClose={()=> setIsVisible (false)} />
     </div>
   );
 };

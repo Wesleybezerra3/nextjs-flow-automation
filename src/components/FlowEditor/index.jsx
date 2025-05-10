@@ -21,6 +21,7 @@ const nodeTypes = {
 import './style.css';
 
 import HeaderFlowEditor from '../HeaderFlowEditor';
+import AddNode from '../ui/AddNode';
 
 export default function FlowEditor() {
     const {
@@ -48,6 +49,7 @@ export default function FlowEditor() {
         elementsSelectable={true} // Permite selecionar os nós
       >
         <HeaderFlowEditor/>
+        <AddNode/>
         <ModalNodes onAddNode={onAddNode}/>
         <Controls className='flex'/>
         <Background />
