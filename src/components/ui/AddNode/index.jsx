@@ -8,7 +8,7 @@ const AddNode = () => {
     const {handleVisible} = useContext(ModalContext)
   return (
     <>
-        <div className='add-node' onClick={handleVisible}>
+        <div className='add-button' onClick={handleVisible}>
             <FontAwesomeIcon icon={faAdd}/>
         </div>
     </>

@@ -1,0 +1,9 @@
+.container-flows {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* justify-content: center; */
+  gap: 1.2em;
+  width: 100%;
+  margin-left: 40px;
+}

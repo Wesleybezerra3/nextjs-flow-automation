@@ -24,7 +24,7 @@ const CustomNode = ({ data }) => {
       <div>
         <FontAwesomeIcon
           icon={data.icon}
-          style={{ color: "#fff", fontSize: "80px" }} // Cor e tamanho do ícone
+          style={{ color: "#fff", fontSize: "60px" }} // Cor e tamanho do ícone
         />
       </div>
       <Handle

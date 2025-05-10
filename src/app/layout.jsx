@@ -1,19 +1,20 @@
 import './styles/globals.css';
 import { config } from '@fortawesome/fontawesome-svg-core';
 import '@fortawesome/fontawesome-svg-core/styles.css';
-import { ModalProvider } from '@/context/AppProvider';
+import { AppProvider} from '@/context/AppProvider';
 config.autoAddCss = false; // Desativa a adição automática de CSS
 
 export default function RootLayout({ children }) {
     return (
-      <html lang="en">
+      <html lang="pt-br">
         <head>
-          <title>Minha Aplicação</title>
+          <link rel="shortcut icon" href="../../assets/xbase_logo.sgv" type="image/x-icon" />
+          <title>XBASE</title>
         </head>
         <body>
-          <ModalProvider>
+          <AppProvider>
             {children}
-          </ModalProvider>
+          </AppProvider>
         </body>
       </html>
     );

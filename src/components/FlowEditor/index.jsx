@@ -6,11 +6,11 @@ import ReactFlow, {
   Controls,
   MiniMap,
   
-} from 'react-flow-renderer';
+}from 'react-flow-renderer';
+import { useFlow } from '@/context/AppProvider';
 import CustomNode from '../Nodes/CustomNode';
 import DottedEdge from '../EdgeCustom';
-import AddNode from '../addNode';
-import ModalNodes from "@/components/ModalNodes";
+import ModalNodes from "@/components/ui/ModalNodes";
 
 const edgeTypes={
   dotted: DottedEdge
@@ -18,18 +18,28 @@ const edgeTypes={
 const nodeTypes = {
   custom: CustomNode,
 };
+import './style.css';
 
-export default function FlowEditor({ nodes, edges, onNodesChange, onEdgesChange, onConnect,onNodeClick }) {
+import HeaderFlowEditor from '../HeaderFlowEditor';
+
+export default function FlowEditor() {
+    const {
+    nodes,
+    edges,
+    onNodesChange,
+    onEdgesChange,
+    onConnect,
+    onAddNode,
+  } = useFlow();
 
   return (
-    <div style={{ height: '100vh',position:'relative' }}>
+    <div className='flow-editor'>
       <ReactFlow
         nodes={nodes}// Define os nós
         edges={edges}// Define os nós e arestas
         onNodesChange={onNodesChange} // Atualiza os nós
         onEdgesChange={onEdgesChange} // Atualiza as arestas
         onConnect={onConnect} // Conecta os nós
-        onNodeClick={onNodeClick} // Atualiza o nó selecionado
         fitView // Ajusta a visualização para caber na tela
         nodeTypes={nodeTypes} // Define os tipos de nós
         edgeTypes={edgeTypes}
@@ -37,8 +47,9 @@ export default function FlowEditor({ nodes, edges, onNodesChange, onEdgesChange,
         nodesConnectable={true} // Permite conectar os nós
         elementsSelectable={true} // Permite selecionar os nós
       >
-        <ModalNodes/>
-        <AddNode/>
+        <HeaderFlowEditor/>
+        <ModalNodes onAddNode={onAddNode}/>
+        <Controls className='flex'/>
         <Background />
       </ReactFlow>
     </div>

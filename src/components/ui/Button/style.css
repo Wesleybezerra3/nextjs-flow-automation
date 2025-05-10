@@ -1,10 +1,10 @@
-button{
+.button{
     color: var(--white);
 
     background-color: var(--purple);
     border: none;
     outline: none;
 }
-button:hover{
+.button:hover{
  background-color: #5316bb;
 }

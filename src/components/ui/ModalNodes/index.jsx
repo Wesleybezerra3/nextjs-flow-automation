@@ -1,23 +1,24 @@
 import { ModalContext } from "@/context/AppProvider";
 import React, { useContext } from "react";
-import Button from "../ui/Button/Button";
+import ButtonModal from "../ButtonModal";
 import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
 import { faGear } from "@fortawesome/free-solid-svg-icons";
 import { faBolt } from "@fortawesome/free-solid-svg-icons";
 import { faClock } from "@fortawesome/free-solid-svg-icons";
 import { faQuestion } from "@fortawesome/free-solid-svg-icons";
+import { faRobot } from "@fortawesome/free-solid-svg-icons";
 import "./style.css";
 
-const ModalNodes = () => {
+const ModalNodes = ({ onAddNode }) => {
   const { isVisible } = useContext(ModalContext);
   return (
     <>
       {isVisible && (
         <div className="modal-nodes">
           <div>
-            <div className="mb-4 flex flex-col gap-2 w-full">
-              <p className="text-2xl font-bold mb-2">Apps</p>
-              <Button
+            <div className="">
+              <p className="">Apps</p>
+              <ButtonModal
                 onClick={() =>
                   onAddNode("whatsapp", "WhatsApp", "#20c707", faWhatsapp)
                 }
@@ -25,33 +26,41 @@ const ModalNodes = () => {
                 color={"#20c707"}
                 content={"WhatsApp"}
               />
+               <ButtonModal
+                onClick={() =>
+                  onAddNode("virtual assistant", "Virtual assistant", "#10A37F",  faRobot)
+                }
+                icon={faRobot}
+                color={"#10a37f"}
+                content={"Assistente Virtual"}
+              />
             </div>
 
-            <div className="mb-4 flex flex-col gap-4 w-full">
-              <p className="text-2xl font-bold mb-2">Internal</p>
+            <div className="">
+              <p className="">Internal</p>
             </div>
-            <Button
+            <ButtonModal
               onClick={() => onAddNode("trigger", "Trigger", "#FF9914", faBolt)}
               color={"#FF9914"}
               icon={faBolt}
               content={"Gatilho"}
             />
 
-            <Button
+            <ButtonModal
               onClick={() => onAddNode("action", "Action", "#08BDBD", faGear)}
               icon={faGear}
               color={"#08BDBD"}
               content={"Ação"}
             />
 
-            <Button
+            <ButtonModal
               onClick={() => onAddNode("delay", "Delay", "#636363", faClock)}
               icon={faClock}
               color={"#636363"}
               content={"Atraso"}
             />
 
-            <Button
+            <ButtonModal
               onClick={() =>
                 onAddNode("condition", "Condition", "#F0A202", faQuestion)
               }

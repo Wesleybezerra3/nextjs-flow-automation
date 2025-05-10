@@ -1,67 +1,34 @@
 "use client";
-import React, { useState } from "react";
-import api from "../../services/api";
-import { useRouter } from "next/navigation";
+import React, { useContext, useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAdd } from "@fortawesome/free-solid-svg-icons";
+import "./style.css";
+import { useFlow } from "@/context/AppProvider";
 
-export default function NewFlow() {
-  const [name, setName] = useState();
+export default function NewFlow({ display }) {
+    const {
+     createFlow
+    } = useFlow();
 
- 
-  const createFlow = async () => {
-    if (!name){
-      alert("Por favor, insira um nome para o fluxo.");
-      return;
-    }
-    console.log(name);
-    const payload = {
-      name: name,
-      data: {
-        nodes: [
-          {
-            id: "trigger-1",
-            data: {
-              label: "Trigger Node",
-              config: {},
-            },
-            type: "trigger",
-            position: { x: 100, y: 100 },
-          },
-        ],
-        edges: [],
-      },
-    };
-    try {
-      const response = await api.post("/flows", payload);
-
-      console.log(response.data);
-      if (response.status === 200) {
-        alert("Fluxo criado com sucesso!");
-        setName("");
-      } else {
-        alert("Erro ao criar o fluxo. Tente novamente.");
-      }
-    } catch (err) {
-      console.error("Erro ao criar o fluxo:", err);
-      alert("Erro ao criar o fluxo. Tente novamente.");
-    }
+  const handleCreateFlow = () => {
+    createFlow(); // Passa a instância do `api` para a função do contexto
   };
 
   return (
-    <div className="p-4">
-      <h1 className="text-2xl font-bold mb-4">Criar Novo Fluxo</h1>
-      <input
-        type="text"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        placeholder="Nome do Fluxo"
-        className="border p-2 w-full mb-4"
-      />
-      <button
-        onClick={createFlow}
-        className="bg-blue-500 text-white px-4 py-2 rounded"
-      >
-        Criar
-      </button>
+    <div
+      className=" new-flow"
+      style={{
+        display: display ? "block" : "none",
+        transition: "display 1s ease-in-out",
+      }}
+    >
+      {/* <h1 className="text-2xl font-bold mb-4">Criar Novo Fluxo</h1> */}
+       
+        <button className="add-flow-button" onClick={handleCreateFlow} >
+          <FontAwesomeIcon icon={faAdd} />
+          <p>Add new project</p>
+        </button>
+      
     </div>
   );
 }
