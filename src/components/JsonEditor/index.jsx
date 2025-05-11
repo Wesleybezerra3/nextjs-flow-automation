@@ -62,6 +62,7 @@ const JsonEditor = ({ visible, onClose }) => {
       <div
         className="json-editor"
         style={{ display: visible ? "block" : "none" }}
+        onClick={(e) => e.stopPropagation()} // Impede o fechamento ao clicar dentro do modal
       >
         <h3>Editor de Fluxo (JSON)</h3>
         <textarea

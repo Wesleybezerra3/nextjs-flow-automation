@@ -5,7 +5,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const CustomNode = ({ data }) => {
   return (
-    <div className="custom-node" style={{ backgroundColor: data.color }}>
+    <div className="custom-node" style={{ backgroundColor: data.color }}
+    >
       {/* Handle no lado esquerdo */}
       {data.label !== "Init" && (
         <Handle

@@ -2,13 +2,13 @@ import { faAdd } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useContext } from 'react'
 import './style.css'
-import { ModalContext } from '@/context/AppProvider'
+import { useFlow } from '@/context/AppProvider'
 
 const AddNode = () => {
-    const {handleVisible} = useContext(ModalContext)
+    const {handleVisibleModalNodes} = useFlow()
   return (
     <>
-        <div className='add-button' onClick={handleVisible}>
+        <div className='add-button' onClick={handleVisibleModalNodes}>
             <FontAwesomeIcon icon={faAdd}/>
         </div>
     </>

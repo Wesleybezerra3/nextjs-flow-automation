@@ -6,7 +6,7 @@ import CardMyFlows from "../CardMyFlows";
 import "./style.css";
 import JsonEditor from "../JsonEditor";
 
-const FlowDetails = ({ display }) => {
+const FlowDetails = () => {
   const [isVisible, setIsVisible] = useState(false);
   const { selectedFlow } = useFlow();
    const toggleVisibility = () => {
@@ -15,9 +15,6 @@ const FlowDetails = ({ display }) => {
   return (
     <div
       className="container-flows"
-      style={{
-        display: display ? "block" : "none",
-      }}
       onClick={toggleVisibility}
     >
       <h2>Projetos</h2>

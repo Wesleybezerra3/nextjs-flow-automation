@@ -3,10 +3,7 @@
 import FlowEditor from "../components/FlowEditor";
 import NodePanel from "../components/NodePanel";
 import Sidebar from "../components/Sidebar";
-import { applyNodeChanges, addEdge } from "react-flow-renderer";
 import React, { useState,useCallback } from "react";
-import Header from "@/components/Header";
-import JsonEditor from "@/components/JsonEditor";
 
 
 export default function Home() {
@@ -24,9 +21,6 @@ export default function Home() {
       </div>
 
       {/* Node Panel */}
-      {/* <div className="w-1/6 p-4" style={{borderLeft: "1px solid #ccc", }}>
-        <NodePanel />
-      </div> */}
     </div>
     </>
   );

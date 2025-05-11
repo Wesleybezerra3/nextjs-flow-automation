@@ -1,0 +1,42 @@
+.node-editor-panel {
+  margin: 100px;
+  width: 100%;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-left: 1px solid #ddd;
+  overflow-y: auto;
+  font-family: 'Roboto', sans-serif;
+  border-radius:4px ;
+}
+
+.node-editor-panel h3 {
+  font-size: 1.5em;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.node-editor-panel p {
+  font-size: 1em;
+  color: #555;
+  margin: 5px 0;
+}
+
+.node-details {
+  margin-bottom: 20px;
+}
+
+.node-parameters ul {
+  list-style: none;
+  padding: 0;
+}
+
+.node-parameters li {
+  margin: 5px 0;
+  font-size: 0.9em;
+  color: #444;
+}
+
+.node-io p {
+  font-size: 0.9em;
+  color: #444;
+}

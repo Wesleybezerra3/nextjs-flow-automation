@@ -1,115 +1,77 @@
-'use client';
-import React, { useState } from 'react';
-import Button from '../ui/Button/Button';
-import { faCopy, faPaste } from '@fortawesome/free-solid-svg-icons';
+import React, { useState, useEffect } from "react";
+import "./style.css";
+import { useFlow } from "@/context/AppProvider";
 
-export default function NodePanel({ selectedNode, onUpdateNode }) {
-  const [copied, setCopied] = useState(false);
-  const [jsonInput, setJsonInput] = useState('');
+const NodePanel = () => {
+  const { selectedFlow, nodes } = useFlow(); // Obtém o fluxo selecionado e os nós do contexto
+  const [selectedNode, setSelectedNode] = useState(null); // Estado para o nó selecionado
 
-  if (!selectedNode) return <div>Selecione um nó para editar</div>;
-
-  const handleCopyJson = () => {
-    navigator.clipboard.writeText(JSON.stringify(selectedNode, null, 2));
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000); // Reseta o estado após 2 segundos
-  };
-
-  const handlePasteJson = async () => {
-    try {
-      const text = await navigator.clipboard.readText();
-      const parsedJson = JSON.parse(text);
-      onUpdateNode(parsedJson); // Atualiza o nó com o JSON colado
-    } catch (error) {
-      alert('Erro ao colar JSON. Certifique-se de que o conteúdo é válido.');
+  // Atualiza o nó selecionado ao clicar em um nó no fluxo
+  useEffect(() => {
+    if (selectedFlow && nodes) {
+      const node = nodes.find((n) => n.selected); // Verifica se algum nó está selecionado
+      setSelectedNode(node || null); // Define o nó selecionado ou null
     }
-  };
+  }, [selectedFlow, nodes]);
 
-  const handleJsonChange = (e) => {
-    setJsonInput(e.target.value);
-  };
-
-  const handleUpdateJson = () => {
-    try {
-      const parsedJson = JSON.parse(jsonInput);
-      onUpdateNode(parsedJson); // Atualiza o nó com o JSON editado
-    } catch (error) {
-      alert('JSON inválido. Certifique-se de que o conteúdo é válido.');
-    }
-  };
+  if (!selectedNode) {
+    return (
+      <section className="node-editor-panel">
+        <h3>Editor do Nó</h3>
+        <p>Nenhum nó selecionado.</p>
+        <p>Selecione um nó no fluxo para ver os detalhes e parâmetros.</p>
+      </section>
+    );
+  }
 
   return (
-    <div style={{ padding: '16px', border: '1px solid #ccc', borderRadius: '8px' }}>
-      <h3>Editar Nó</h3>
-      <label>
-        Nome:
-        <input
-          type="text"
-          value={selectedNode.data.action}
-          onChange={(e) =>
-            onUpdateNode({ ...selectedNode, data: { ...selectedNode.data, action: e.target.value } })
-          }
-          style={{ display: 'block', margin: '8px 0', padding: '8px', width: '100%' }}
-        />
-      </label>
-      <h4>JSON do Nó</h4>
-      <textarea
-        value={JSON.stringify(selectedNode, null, 2)}
-        readOnly
-        style={{
-          background: '#f8f8f8',
-          padding: '8px',
-          borderRadius: '4px',
-          overflowX: 'auto',
-          maxHeight: '200px',
-          width: '100%',
-          height: '150px',
-        }}
-      />
-      <div style={{ display: 'flex', gap: '8px', marginTop: '8px' }}>
-        <Button
-          onClick={handleCopyJson}
-          content={copied ? 'Copiado!' : 'Copiar JSON'}
-          icon={faCopy}
-          color={'#f8f8f8'}
-        />
-        <Button
-          onClick={handlePasteJson}
-          content={'Colar JSON'}
-          icon={faPaste}
-          color={'#f8f8f8'}
-        />
-      </div>
-      <h4>Editar JSON</h4>
-      <textarea
-        value={jsonInput}
-        onChange={handleJsonChange}
-        placeholder="Cole ou edite o JSON aqui"
-        style={{
-          background: '#fff',
-          padding: '8px',
-          borderRadius: '4px',
-          overflowX: 'auto',
-          maxHeight: '200px',
-          width: '100%',
-          height: '150px',
-          marginTop: '8px',
-        }}
-      />
-      <Button
-        onClick={handleUpdateJson}
-        content={'Atualizar JSON'}
-        color={'#007bff'}
-        style={{
-          marginTop: '8px',
-          padding: '8px 16px',
-          backgroundColor: '#007bff',
-          color: '#fff',
-          border: 'none',
-          borderRadius: '4px',
-          cursor: 'pointer',
-        }}
-      />
-    </div>
+    <section className="node-editor-panel">
+      <h3>Editor do Nó</h3>
+
+      <article className="node-details">
+        <p>
+          <strong>ID:</strong> {selectedNode.id}
+        </p>
+        <p>
+          <strong>Label:</strong> {selectedNode.data.label}
+        </p>
+        <p>
+          <strong>Tipo:</strong> {selectedNode.type}
+        </p>
+        <p>
+          <strong>Cor:</strong>{" "}
+          <span style={{ color: selectedNode.data.color }}>
+            {selectedNode.data.color}
+          </span>
+        </p>
+      </article>
+
+      <article className="node-parameters">
+        <h3>Parâmetros</h3>
+        {Array.isArray(selectedNode.data.actions) ? (
+          <ul>
+            {selectedNode.data.actions.map((action) => (
+              <li key={action.id}>
+                <strong>{action.label}</strong> (ID: {action.id})
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>Nenhum parâmetro disponível.</p>
+        )}
+      </article>
+
+      <article className="node-io">
+        <h4>Entradas e Saídas</h4>
+        <p>
+          <strong>Entradas:</strong> {selectedNode.data.inputs || "Nenhuma"}
+        </p>
+        <p>
+          <strong>Saídas:</strong> {selectedNode.data.outputs || "Nenhuma"}
+        </p>
+      </article>
+    </section>
   );
-}
+};
+
+export default NodePanel;
