@@ -14,7 +14,7 @@ export const nodeTypes = {
       { id: "receiveMessage", label: "Receive Message" },
     ],
   },
-  "virtual assistant": {
+  virtualssistant: {
     type: "app",
     label: "Virtual Assistant",
     color: "#10a37f",

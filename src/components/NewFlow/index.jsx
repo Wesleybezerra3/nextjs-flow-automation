@@ -28,7 +28,7 @@ export default function NewFlow() {
     >
       <button className="add-flow-button" onClick={handleCreateFlow}>
         <FontAwesomeIcon icon={faAdd} />
-        <p>Add new project</p>
+        <p>Adicionar novo Fluxo</p>
       </button>
       <ModalNewFlow visible={isVisible} onClose={()=> setIsVisible(false)}/>
     </div>

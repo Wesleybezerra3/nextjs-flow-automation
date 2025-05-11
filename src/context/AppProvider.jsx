@@ -22,6 +22,7 @@ export const AppProvider = ({ children }) => {
   const [lastUpdate, setLastUpdate] = useState(null); // Última atualização do fluxo
   const [myFlows, setMyFlows] = useState([]); // Lista de fluxos
   const [selectedFlow, setSelectedFlow] = useState(null); // Fluxo atualmente selecionado
+  const [notifications, setNotifications] = useState([]);   // Estado para notificações
   const [nodes, setNodes] = useState([
     {
       id: "1",
@@ -30,7 +31,7 @@ export const AppProvider = ({ children }) => {
         label: "Init",
         color: "#FF9914",
         icon: faBolt,
-        type: "init",
+        type: "action",
         actions: { id: "init", label: "Start Flow" },
       },
       position: { x: 250, y: 0 },
@@ -51,6 +52,18 @@ export const AppProvider = ({ children }) => {
   // ============================
 
     
+  // Função para adicionar uma nova notificação
+  const addNotification = (message, type = "info") => {
+    setNotifications((prev) => [
+      ...prev,
+      { id: Date.now(), message, type },
+    ]);
+  };
+
+  // Função para remover uma notificação
+  const removeNotification = (id) => {
+    setNotifications((prev) => prev.filter((notification) => notification.id !== id));
+  };
 
   // Alterna a visibilidade do modal
    const handleVisibleModalNodes = () => {
@@ -115,41 +128,43 @@ export const AppProvider = ({ children }) => {
       data: { label, color, icon, type, actions },
       position: { x: Math.random() * 200, y: Math.random() * 200 },
     };
-    console.log("Novo nó adicionado:", newNode);
+    addNotification(
+      `Novo nó adicionado: ${label}`,'success')
     setNodes((prevNodes) => [...prevNodes, newNode]);
   };
 
   // Cria um novo fluxo
-  const createFlow = useCallback(
-    async (flowName) => {
-      try {
-        // const existingFlows = myFlows.filter((flow) =>
-        //   flow.attributes.name.startsWith("W")
-        // );
-        const nextFlowNumber = myFlows.length + 1;
-        const defaultName = `W_New Flow${nextFlowNumber}`;
+// Cria um novo fluxo
+const createFlow = useCallback(
+  async (flowName) => {
+    try {
+      const nextFlowNumber = myFlows.length + 1;
+      const defaultName = `w_New Flow${nextFlowNumber}`;
 
-        const response = await api.post(`/flows`, {
+      // Adiciona o prefixo 'w_' ao nome fornecido
+      const prefixedFlowName = flowName ? `w_${flowName}` : defaultName;
+
+      const response = await api.post(`/flows`, {
+        data: {
+          name: prefixedFlowName,
           data: {
-            name: flowName || defaultName,
-            data: {
-              nodes: nodes,
-              edges: edges,
-            },
+            nodes: nodes,
+            edges: edges,
           },
-        });
+        },
+      });
 
-        setMyFlows((prevFlows) => [...prevFlows, response.data.data]);
-        setSelectedFlow(response.data.data);
-        alert("Fluxo criado com sucesso!");
-        console.log("Fluxo criado com sucesso:", response.data.data);
-        return response.data;
-      } catch (error) {
-        console.error("Erro ao criar fluxo:", error);
-      }
-    },
-    [nodes, edges, myFlows]
-  );
+      setMyFlows((prevFlows) => [...prevFlows, response.data.data]);
+      setSelectedFlow(response.data.data);
+      addNotification("Fluxo criado com sucesso!", "success");
+      return response.data;
+    } catch (error) {
+      addNotification("Erro ao criar fluxo. Tente novamente.", "error");
+      console.error("Erro ao criar fluxo:", error);
+    }
+  },
+  [nodes, edges, myFlows]
+);
 
   // Lista fluxos
   const listFlows = useCallback(async () => {
@@ -177,8 +192,9 @@ export const AppProvider = ({ children }) => {
     try {
       await api.delete(`/flows/${flowId}`);
       setMyFlows((prevFlows) => prevFlows.filter((flow) => flow.id !== flowId));
-      console.log("Fluxo deletado com sucesso:", flowId);
+      addNotification("Fluxo deletado com sucesso:", "success");
     } catch (error) {
+      addNotification("Erro ao deletar fluxo. Tente novamente.", "error");
       console.error("Erro ao deletar fluxo:", error);
     }
   }, []);
@@ -207,10 +223,13 @@ export const AppProvider = ({ children }) => {
         },
       }));
 
-      console.log("Fluxo atualizado com sucesso:", updatedFlow);
+      addNotification("Fluxo atualizado com sucesso:", "success");
     } catch (error) {
       console.error("Erro ao atualizar o fluxo:", error);
-      alert("Erro ao atualizar o fluxo. Verifique o JSON.");
+      addNotification(
+        "Erro ao atualizar o fluxo. Verifique o JSON fornecido.",
+        "error"
+      );
     }
   };
 
@@ -245,8 +264,7 @@ export const AppProvider = ({ children }) => {
       };
 
       const response = await api.put(`/flows/${selectedFlow.id}`, flowData);
-      console.log("Fluxo atualizado automaticamente:", response.data);
-
+      addNotification("Fluxo salvo automaticamente", "success");
       setMyFlows((prevFlows) =>
         prevFlows.map((flow) =>
           flow.id === selectedFlow.id
@@ -258,6 +276,7 @@ export const AppProvider = ({ children }) => {
       setLastUpdate(new Date());
     } catch (error) {
       console.error("Erro ao salvar fluxo automaticamente:", error);
+      addNotification("Erro ao salvar fluxo automaticamente", "error");
     }
   }, [selectedFlow, nodes, edges]);
 
@@ -314,6 +333,9 @@ export const AppProvider = ({ children }) => {
         onUpdateFlow,
         handleVisibleModalNodes,
         isVisible,
+        addNotification,
+        removeNotification,
+        notifications,
       }}
     >
       {children}

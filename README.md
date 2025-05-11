@@ -4,6 +4,13 @@ Este projeto foi desenvolvido como parte de um processo seletivo para a startup 
 
 ---
 
+## Exemplo de Interface
+
+![Interface](/images/printFlows.png)
+![Interface](/images/printFlows2.png)
+![Interface](/images/printFlows3.png)
+
+
 ## **Recursos Principais**
 
 - **Criação de Fluxos**: Adicione novos fluxos e gerencie-os facilmente.

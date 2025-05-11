@@ -27,9 +27,11 @@ export default function Sidebar() {
       <div className="logo">
         <p>XBASE</p>
       </div>
-      <NewFlow  />
+      <NewFlow />
+
       <FlowDetails />
-      <NodePanel/>
+
+      <NodePanel />
     </div>
   );
 }

@@ -22,84 +22,8 @@ const CustomNode = ({ data }) => {
           }}
         />
       )}
-
+    
       {/* Handles exclusivos para o tipo "Virtual Assistant" */}
-      {data.label === "Virtual Assistant" && (
-        <>
-          {/* Handles superiores (Tools e Memory) */}
-          <div
-            style={{
-              position: "absolute",
-              top: "10px", // Ajuste a posição vertical conforme necessário
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              gap: "70px", // Espaçamento entre os handles
-              marginBottom: "20px", // Espaço entre os handles e o conteúdo do nó
-            }}
-          >
-            <div style={{ position: "relative" }}>
-              <Handle
-                type="source"
-                position="top"
-                id="tools-output"
-                style={{
-                  background: data.color,
-                  width: "40px",
-                  height: "40px",
-                  cursor: "pointer",
-                  transform: "translate(-50%, -50%)",
-                  border: "6px solid #f8f8f8",
-                }}
-              />
-              <div
-                style={{
-                  position: "absolute",
-                  top: "-40px",
-                  left: "50%",
-                  transform: "translateX(-50%)",
-                  color: "#1f1f1f",
-                  fontSize: "12px",
-                  opacity: 0.8,
-                  fontWeight: "bold",
-                }}
-              >
-                Tools
-              </div>
-            </div>
-            <div style={{ position: "relative" }}>
-              <Handle
-                type="source"
-                position="top"
-                id="memory-output"
-                style={{
-                  background: data.color,
-                  width: "40px",
-                  height: "40px",
-                  cursor: "pointer",
-                  transform: "translate(-50%, -50%)",
-                  border: "6px solid #f8f8f8",
-                }}
-              />
-              <div
-                style={{
-                  position: "absolute",
-                  top: "-40px",
-                  left: "50%",
-                  transform: "translateX(-50%)",
-                  color: "#1f1f1f",
-                  opacity: 0.8,
-                  fontSize: "12px",
-                  fontWeight: "bold",
-                }}
-              >
-                Memory
-              </div>
-            </div>
-          </div>
-        </>
-      )}
-
       {/* Ícone do nó */}
       <div
         style={{

@@ -11,6 +11,10 @@ import { useFlow } from '@/context/AppProvider';
 import CustomNode from '../Nodes/CustomNode';
 import DottedEdge from '../EdgeCustom';
 import ModalNodes from "@/components/ui/ModalNodes";
+import './style.css';
+
+import HeaderFlowEditor from '../HeaderFlowEditor';
+import AddNode from '../ui/AddNode';
 
 const edgeTypes={
   dotted: DottedEdge
@@ -18,10 +22,6 @@ const edgeTypes={
 const nodeTypes = {
   custom: CustomNode,
 };
-import './style.css';
-
-import HeaderFlowEditor from '../HeaderFlowEditor';
-import AddNode from '../ui/AddNode';
 
 export default function FlowEditor() {
     const {

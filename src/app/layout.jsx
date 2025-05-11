@@ -2,6 +2,7 @@ import './styles/globals.css';
 import { config } from '@fortawesome/fontawesome-svg-core';
 import '@fortawesome/fontawesome-svg-core/styles.css';
 import { AppProvider} from '@/context/AppProvider';
+import Notifications from '@/components/Notifications';
 config.autoAddCss = false; // Desativa a adição automática de CSS
 
 export default function RootLayout({ children }) {
@@ -13,6 +14,7 @@ export default function RootLayout({ children }) {
         </head>
         <body>
           <AppProvider>
+            <Notifications/>
             {children}
           </AppProvider>
         </body>
